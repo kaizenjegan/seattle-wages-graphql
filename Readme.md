@@ -1,1 +1,1 @@
-to do add sample queries
+A GraphQL layer for querying seattle wage data
