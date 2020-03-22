@@ -9,7 +9,7 @@ const resolvers = {
             return rp({ uri: `https://data.seattle.gov/api/views/cf52-s8er/rows.json` }).then(dataString => {
                 let blob = JSON.parse(dataString);
                 let data = blob["data"];
-                let wages = []; 
+                let wages = [];
                 data.map( unstructuredWage =>{
                     let wage = {
                         sid: unstructuredWage[0],
@@ -24,10 +24,13 @@ const resolvers = {
                         female_avg_hrly_rate: unstructuredWage[9],
                         no_female_empl: unstructuredWage[10],
                         average_of_male_months_longevity_in_current_classification: unstructuredWage[11],
-                        total_avg_hrly_rate: unstructuredWage[11],
-                        total_no_empl: unstructuredWage[12],
-                        total_average_of_months_longevity_in_current_classification: unstructuredWage[13],
-                        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: unstructuredWage[14]
+                        male_avg_hrly_rate: unstructuredWage[12],
+                        no_male_empl: unstructuredWage[13],
+                        average_of_male_months_longevity_in_current_classification: unstructuredWage[13],
+                        total_avg_hrly_rate: unstructuredWage[14],
+                        total_average_of_months_longevity_in_current_classification: unstructuredWage[15],
+                        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: unstructuredWage[16],
+                        notes: unstructuredWage[17],
                     }
                     wages.push(wage);
                 } );
