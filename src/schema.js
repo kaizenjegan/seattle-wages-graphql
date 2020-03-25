@@ -7,35 +7,35 @@ const resolvers = {
     Query: {
         allSeattleWages: () => {
             return rp({ uri: `https://data.seattle.gov/api/views/cf52-s8er/rows.json` }).then(dataString => {
-                let blob = JSON.parse(dataString);
-                let data = blob["data"];
-                let wages = [];
-                data.map( unstructuredWage =>{
-                    let wage = {
-                        sid: unstructuredWage[0],
-                        id: unstructuredWage[1],
-                        position: unstructuredWage[2],
-                        created_at: unstructuredWage[3],
-                        created_meta: unstructuredWage[4],
-                        updated_at: unstructuredWage[5],
-                        updated_meta: unstructuredWage[6],
-                        meta: unstructuredWage[7],
-                        job_title: unstructuredWage[8],
-                        female_avg_hrly_rate: unstructuredWage[9],
-                        no_female_empl: unstructuredWage[10],
-                        average_of_male_months_longevity_in_current_classification: unstructuredWage[11],
-                        male_avg_hrly_rate: unstructuredWage[12],
-                        no_male_empl: unstructuredWage[13],
-                        average_of_male_months_longevity_in_current_classification: unstructuredWage[13],
-                        total_avg_hrly_rate: unstructuredWage[14],
-                        total_average_of_months_longevity_in_current_classification: unstructuredWage[15],
-                        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: unstructuredWage[16],
-                        notes: unstructuredWage[17],
-                    }
-                    wages.push(wage);
-                } );
+              let blob = JSON.parse(dataString);
+              let data = blob["data"];
+              let wages = [];
+              data.map( unstructuredWage => {
+                  let wage = {
+                    sid: unstructuredWage[0],
+                    id: unstructuredWage[1],
+                    position: unstructuredWage[2],
+                    createdAt: unstructuredWage[3],
+                    createdMeta: unstructuredWage[4],
+                    updatedAt: unstructuredWage[5],
+                    updatedMeta: unstructuredWage[6],
+                    meta: unstructuredWage[7],
+                    jobTitle: unstructuredWage[8],
+                    femaleAvgHrlyRate: unstructuredWage[9],
+                    noFemaleEmpl: unstructuredWage[10],
+                    averageOfFemaleMonthsLongevityInCurrentClassification: unstructuredWage[11],
+                    maleAvgHrlyRate: unstructuredWage[12],
+                    noMaleEmployees: unstructuredWage[13],
+                    averageOfMaleMonthsLongevityInCurrentClassification: unstructuredWage[13],
+                    totalAvgHrlyRate: unstructuredWage[14],
+                    totalAverageOfMonthsLongevityInCurrentClassification: unstructuredWage[15],
+                    ratioOfWomenHourlyRateToMenHourlyRatePercentage: unstructuredWage[16],
+                    notes: unstructuredWage[17],
+                  }
+                  wages.push(wage);
+              } );
 
-                return wages;
+              return wages;
             });
         },
     }
