@@ -5,7 +5,7 @@ import schema from './schema';
 
 const app = express();
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 app.use('/graphiql', graphiqlExpress({
     endpointURL: '/graphql',
