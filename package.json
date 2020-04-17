@@ -1,26 +1,37 @@
 {
-  "name": "nodeGraphQL",
-  "version": "1.0.0",
-  "description": "a graphQL service that provided seattle",
+  "name": "seattle-wages-graphql",
+  "version": "1.0.1",
+  "description": "a graphQL service that provides wage information for seattle",
   "main": "index.js",
   "author": "Jegan Matthews",
-  "license": "MIT",
+  "license": "ISC",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node ./src/app.js",
-    "debug": "./node_modules/.bin/babel-node --nolazy --inspect-brk=9229 ./src/app.js"
+    "test": "jest",
+    "start": "nodemon src/index.js",
+    "start:ci": "node src/index.js"
   },
   "dependencies": {
-    "apollo-server-express": "^1.1.2",
-    "body-parser": "^1.18.1",
-    "express": "^4.15.4",
-    "graphql": "^0.11.3",
-    "graphql-tools": "^1.2.2",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.5"
+    "apollo-datasource": "^0.1.3",
+    "apollo-datasource-rest": "^0.1.5",
+    "apollo-server": "2.6.1",
+    "apollo-server-testing": "2.6.1",
+    "graphql": "^14.2.1",
+    "isemail": "^3.1.3",
+    "nodemon": "^1.18.4",
+    "sequelize": "^4.39.0",
+    "sqlite3": "^4.0.3"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-inline-import": "^2.0.6",
-    "babel-preset-env": "^1.6.0"
+    "apollo-link": "^1.2.3",
+    "apollo-link-http": "^1.5.5",
+    "jest": "^23.6.0",
+    "nock": "^10.0.2",
+    "node-fetch": "^2.2.1"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/__utils"
+    ]
   }
 }

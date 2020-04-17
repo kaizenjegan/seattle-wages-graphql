@@ -1,41 +1,33 @@
-import { makeExecutableSchema } from 'graphql-tools';
-import typeDefs from './types.graphql';
-const request = require('request');
-import rp from 'request-promise';
+const { gql } = require('apollo-server');
 
-const resolvers = {
-    Query: {
-        allSeattleWages: () => {
-            return rp({ uri: `https://data.seattle.gov/api/views/cf52-s8er/rows.json` }).then(dataString => {
-                let blob = JSON.parse(dataString);
-                let data = blob["data"];
-                let wages = []; 
-                data.map( unstructuredWage =>{
-                    let wage = {
-                        sid: unstructuredWage[0],
-                        id: unstructuredWage[1],
-                        position: unstructuredWage[2],
-                        created_at: unstructuredWage[3],
-                        created_meta: unstructuredWage[4],
-                        updated_at: unstructuredWage[5],
-                        updated_meta: unstructuredWage[6],
-                        meta: unstructuredWage[7],
-                        job_title: unstructuredWage[8],
-                        female_avg_hrly_rate: unstructuredWage[9],
-                        no_female_empl: unstructuredWage[10],
-                        average_of_male_months_longevity_in_current_classification: unstructuredWage[11],
-                        total_avg_hrly_rate: unstructuredWage[11],
-                        total_no_empl: unstructuredWage[12],
-                        total_average_of_months_longevity_in_current_classification: unstructuredWage[13],
-                        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: unstructuredWage[14]
-                    }
-                    wages.push(wage);
-                } );
+const typeDefs = gql`
+    type Wage {
+        sid: String
+        id: String
+        position: String
+        created_at: String
+        created_meta: String
+        updated_at: String
+        updated_meta: String
+        meta: String
+        job_title: String
+        female_avg_hrly_rate: String
+        no_female_empl: String
+        average_of_female_months_longevity_in_current_classification: String
+        male_avg_hrly_rate: String
+        no_male_empl: String
+        average_of_male_months_longevity_in_current_classification: String
+        total_avg_hrly_rate: String
+        total_no_empl: String
+        total_average_of_months_longevity_in_current_classification: String
+        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: String
 
-                return wages;
-            });
-        },
     }
-}
 
-export default makeExecutableSchema({ typeDefs, resolvers });
+
+    type Query {
+        allSeattleWages: [Wage!]!
+    }
+`;
+
+module.exports = typeDefs;
