@@ -7,6 +7,17 @@ const server = new ApolloServer({
     typeDefs,
     resolvers,
     playground: true,
+    introspection:true,
+    context: async ({ req }) => {
+        let headers = {headers: req.headers}
+        if(req.headers.authorization){
+            let token = req.headers.authorization;
+            const user = (token != 'null' || null) ? await getUser(token) : null;
+            return user ? { headers,token, user } : { headers,token };
+        }else{
+            return {headers};
+        }
+    },
     dataSources: () => ({
         wageAPI: new WageAPI()
     })
