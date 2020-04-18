@@ -6,12 +6,13 @@ const resolvers = require('./resolvers');
 const server = new ApolloServer({ 
     typeDefs,
     resolvers,
+    playground: true,
     dataSources: () => ({
         wageAPI: new WageAPI()
     })
 });
 
-const PORT = process.env.PORT;
-server.listen({ port: PORT }).then(({ url }) => {
+const port = process.env.PORT;
+server.listen({ port }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });
