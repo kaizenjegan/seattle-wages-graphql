@@ -18,34 +18,44 @@ class WageAPI extends RESTDataSource {
   }
 
   wageReducer(wage){
-    // console.log(wage)
     return {
         sid: wage[0],
         id: wage[1],
         position: wage[2],
-        created_at: wage[3],
-        created_meta: wage[4],
-        updated_at: wage[5],
-        updated_meta: wage[6],
+        createdAt: wage[3],
+        createdMeta: wage[4],
+        updatedAt: wage[5],
+        updatedMeta: wage[6],
         meta: wage[7],
-        job_title: wage[8],
-        female_avg_hrly_rate: wage[9],
-        no_female_empl: wage[10],
-        average_of_male_months_longevity_in_current_classification: wage[11],
-        total_avg_hrly_rate: wage[11],
-        total_no_empl: wage[12],
-        total_average_of_months_longevity_in_current_classification: wage[13],
-        ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage: wage[14]
+        jobTitle: wage[8],
+        femaleAvgHrlyRate: wage[9],
+        noFemaleEmployee: wage[10],
+        averageOfFemaleMonthsLongevityInCurrentClassification: wage[11], //Average of Female MONTHS LONGEVITY IN CURRENT CLASSIFICATION 
+        maleAvgHrlyRate: wage[12], //Male Avg Hrly Rate 
+        noMaleEmployees: wage[13], //No. Male Empl"
+        averageOfMaleMonthsLongevityInCurrentClassification: wage[14], //Average of Male MONTHS LONGEVITY IN CURRENT CLASSIFICATION
+        totalAvgHourlyRate: wage[15], //Total Avg Hrly Rate
+        totalNoEmployee: wage[16],
+        totalAverageOfMonthsLongevityInCurrentClassification: wage[17],
+        ratioOfWomenHourlyRateToMenHourlyRatePercentage: wage[18],
+        notes: wage[19]       
     }
   }
 
-  async getWageById({ wageId }){
-    // const respon
+  //not optimal
+  async wagesByJobTitle({ title }){ 
+    console.log('get wages by job title');
+
+    let promise = new Promise(async(resolve, reject)=>{
+      const wages = await this.getAllWages();
+      const wage = wages.filter( w => w.jobTitle.toLowerCase() === title.toLowerCase() )
+
+      resolve(wage[0]);
+    })
+
+    return promise;
   }
 
-  getWagesByIds({ wageIds }) {
-
-  }
 }
 
 module.exports = WageAPI;

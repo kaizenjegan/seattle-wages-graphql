@@ -25,7 +25,7 @@ A GraphQL layer for querying seattle wage data
                   noFemaleEmpl
                   averageOfFemaleMonthsLongevityInCurrentClassification
                   maleAvgHrlyRate
-                  noMaleEmployees
+                  noMaleEmployeesoyees
                   averageOfMaleMonthsLongevityInCurrentClassification
                   totalAvgHrlyRate
                   totalNoEmpl
