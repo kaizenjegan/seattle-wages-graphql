@@ -25,7 +25,7 @@ const typeDefs = gql`
     }
 
     type Query {
-        allSeattleWages(filter: String): [Wage!]!
+        allSeattleWages(filter: String, id: String, orderBy: String): [Wage!]!
         wagesByJobTitle(title: String!): Wage
     }
 `;

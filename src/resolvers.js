@@ -1,7 +1,9 @@
 module.exports = {
     Query: {
-        allSeattleWages: (_, __, { dataSources }) =>
-            dataSources.wageAPI.getAllWages(),
+        allSeattleWages: (_, args, { dataSources }) =>{
+            console.log(args);
+            return dataSources.wageAPI.getAllWages()
+        },
         wagesByJobTitle: (_,{ title } , { dataSources}) =>
             dataSources.wageAPI.wagesByJobTitle({title})
     }
