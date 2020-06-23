@@ -1,7 +1,13 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-    type Wage {
+    type NoteType{
+        body: String
+    }
+
+    scalar YeetType
+
+    type WageType {
         sid: String
         id: String
         position: String
@@ -21,12 +27,25 @@ const typeDefs = gql`
         totalNoEmployee: String
         totalAverageOfMonthsLongevityInCurrentClassification: String
         ratioOfWomenHourlyRateToMenHourlyRatePercentage: String
-        notes: String
+        notes: YeetType
+    }
+
+    input FilterInput {
+        title_starts_with: String
+    }
+
+    input WageInput {
+        name: String
+        DOB: String
     }
 
     type Query {
-        allSeattleWages(filter: String, id: String, orderBy: String): [Wage!]!
-        wagesByJobTitle(title: String!): Wage
+        wages(filter: FilterInput, id: String, orderBy: String): [WageType!]!
+        wage(title: String!): WageType
+    }
+
+    type Mutation{
+        setWages(input: WageInput): [WageType]
     }
 `;
 

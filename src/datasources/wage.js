@@ -1,5 +1,6 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
+//import mongoose
 class WageAPI extends RESTDataSource {
   constructor() {
     super();
@@ -38,7 +39,7 @@ class WageAPI extends RESTDataSource {
         totalNoEmployee: wage[16],
         totalAverageOfMonthsLongevityInCurrentClassification: wage[17],
         ratioOfWomenHourlyRateToMenHourlyRatePercentage: wage[18],
-        notes: wage[19]       
+        notes: wage[19]   
     }
   }
 
