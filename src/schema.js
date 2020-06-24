@@ -1,22 +1,20 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-    type Wage {
+    type Job {
         sid: String
         id: String
         position: String
         createdAt: String
-        createdMeta: String
         updatedAt: String
-        updatedMeta: String
         meta: String
-        jobTitle: String
+        title: String
         femaleAvgHrlyRate: String
-        noFemaleEmployee: String
-        averageOfFemaleMonthsLongevityInCurrentClassification: String
+        numberOfFemaleEmployees: String
+        averageOfFemaleLongevityInMonths: String
         maleAvgHrlyRate: String
         noMaleEmployees: String
-        averageOfMaleMonthsLongevityInCurrentClassification: String
+        averageOfMaleLongevityInMonths: String
         totalAvgHourlyRate: String
         totalNoEmployee: String
         totalAverageOfMonthsLongevityInCurrentClassification: String
@@ -25,8 +23,8 @@ const typeDefs = gql`
     }
 
     type Query {
-        allSeattleWages(filter: String): [Wage!]!
-        wagesByJobTitle(title: String!): Wage
+        jobs(filter: String): [Job!]!
+        job(title: String!): Job
     }
 `;
 
