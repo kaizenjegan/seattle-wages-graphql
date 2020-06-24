@@ -50,14 +50,18 @@ class SeattleAPI extends RESTDataSource {
   }
 
   //not optimal
-  async getJobsByTitle({ title }){ 
+  async getJobsWith({ title }){ 
     console.log('get wages by job title');
-
-    let promise = new Promise(async(resolve, reject)=>{
-      const wages = await this.getJobs();
-      const wage = wages.filter( w => w.jobTitle.toLowerCase() === title.toLowerCase() )
-
-      resolve(wage[0]);
+    //sanitization + logging
+    const promise = new Promise(async(resolve, reject)=>{
+      jobsModel.find({title: title}, (err, job)=>{
+        if(!err){
+          console.log(job)
+          resolve(job[0])
+        }else{
+          reject(err)
+        }
+      })
     })
 
     return promise;
