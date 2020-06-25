@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 
-// process.env.mongooseURL
 //mongodb+srv://graphqluser:change@cluster0-bxbjj.azure.mongodb.net/<dbname>?retryWrites=true&w=majority
 const connectionString = "mongodb://localhost:27017/seattlejobs";
 
 mongoose.connect(connectionString, {useNewUrlParser: true});
-
-
 
 const jobsModel = mongoose.model('Job', new mongoose.Schema({ 
     name: String,
@@ -65,15 +62,9 @@ const wageReducer = (wage)=>{
 // Make a request for a user with a given ID
 axios.get('https://data.seattle.gov/api/views/cf52-s8er/rows.json')
   .then(function (response) {
-    // handle success
-    // console.log(response["data"]);
-
     const wage = response.data;
     const jobs = Array.isArray(wage.data) ? wage.data.map(job => wageReducer(job)): [];
     
-
-    // console.log(Array.isArray (data['data']) );
-    console.log(jobs);
     jobsModel.insertMany(jobs)
     .then(function(mongooseDocuments) {
          /* ... */
