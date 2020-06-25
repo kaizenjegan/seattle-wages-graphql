@@ -9,7 +9,7 @@ A GraphQL layer for querying seattle wage data
 - add query below
 
 
-      query allSeattleJobs    {
+      query getWages    {
             jobs {  
 
                   sid  
