@@ -1,56 +1,67 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const mongoose = require('mongoose');
+const connectionString = "mongodb://localhost:27017/seattlejobs";
 
-class WageAPI extends RESTDataSource {
+mongoose.connect(connectionString, {useNewUrlParser: true});
+
+
+const jobsModel = mongoose.model('Job', new mongoose.Schema({ 
+  name: String,
+  sid: String,
+  id: String,
+  position: String,
+  createdAt: String,
+  createdMeta: String,
+  updatedAt: String,
+  updatedMeta: String,
+  meta: String,
+  title: String,
+  numberOfFemaleEmployees: String,
+  noFemaleEmployee: String,
+  averageOfFemaleMonthsLongevityInCurrentClassification: String, //Average of Female MONTHS LONGEVITY IN CURRENT CLASSIFICATION 
+  maleAvgHrlyRate: String, //Male Avg Hrly Rate 
+  noMaleEmployees: String, //No. Male Empl"
+  averageOfMaleMonthsLongevityInCurrentClassification: String, //Average of Male MONTHS LONGEVITY IN CURRENT CLASSIFICATION
+  totalAvgHourlyRate: String, //Total Avg Hrly Rate
+  totalNoEmployee: String,
+  totalAverageOfMonthsLongevityInCurrentClassification: String,
+  ratioOfWomenHourlyRateToMenHourlyRatePercentage: String,
+  notes: String   
+}));
+
+
+class SeattleAPI extends RESTDataSource {
   constructor() {
     super();
     // https://data.seattle.gov/api/views/cf52-s8er/rows.json
     this.baseURL = 'https://data.seattle.gov/api/views/cf52-s8er/';
   }
 
-  async getAllWages() {
-    console.log('get all wages');
-    const responseBlob = await this.get('rows.json');  //data is very unstructured
-    const response = responseBlob["data"];
-
-    return Array.isArray(response)
-      ? response.map(launch => this.wageReducer(launch))
-      : [];
-  }
-
-  wageReducer(wage){
-    return {
-        sid: wage[0],
-        id: wage[1],
-        position: wage[2],
-        createdAt: wage[3],
-        createdMeta: wage[4],
-        updatedAt: wage[5],
-        updatedMeta: wage[6],
-        meta: wage[7],
-        jobTitle: wage[8],
-        femaleAvgHrlyRate: wage[9],
-        noFemaleEmployee: wage[10],
-        averageOfFemaleMonthsLongevityInCurrentClassification: wage[11], //Average of Female MONTHS LONGEVITY IN CURRENT CLASSIFICATION 
-        maleAvgHrlyRate: wage[12], //Male Avg Hrly Rate 
-        noMaleEmployees: wage[13], //No. Male Empl"
-        averageOfMaleMonthsLongevityInCurrentClassification: wage[14], //Average of Male MONTHS LONGEVITY IN CURRENT CLASSIFICATION
-        totalAvgHourlyRate: wage[15], //Total Avg Hrly Rate
-        totalNoEmployee: wage[16],
-        totalAverageOfMonthsLongevityInCurrentClassification: wage[17],
-        ratioOfWomenHourlyRateToMenHourlyRatePercentage: wage[18],
-        notes: wage[19]       
-    }
+  async getJobs() {
+    return new Promise((resolve, reject)=>{
+      jobsModel.find({}, (err, jobs)=>{
+        if(!err){
+          resolve(jobs)
+        }else{
+          reject(err)
+        }
+      })
+    })
   }
 
   //not optimal
-  async wagesByJobTitle({ title }){ 
+  async getJobsWith({ title }){ 
     console.log('get wages by job title');
-
-    let promise = new Promise(async(resolve, reject)=>{
-      const wages = await this.getAllWages();
-      const wage = wages.filter( w => w.jobTitle.toLowerCase() === title.toLowerCase() )
-
-      resolve(wage[0]);
+    //sanitization + logging
+    const promise = new Promise(async(resolve, reject)=>{
+      jobsModel.find({title: title}, (err, job)=>{
+        if(!err){
+          console.log(job)
+          resolve(job[0])
+        }else{
+          reject(err)
+        }
+      })
     })
 
     return promise;
@@ -58,4 +69,4 @@ class WageAPI extends RESTDataSource {
 
 }
 
-module.exports = WageAPI;
+module.exports = SeattleAPI;

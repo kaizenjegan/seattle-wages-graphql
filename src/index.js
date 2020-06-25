@@ -1,6 +1,6 @@
 const { ApolloServer } = require('apollo-server');
 const typeDefs = require('./schema');
-const WageAPI = require('./datasources/wage');
+const SeattleAPI = require('./datasources/wage');
 const resolvers = require('./resolvers');
 
 const server = new ApolloServer({ 
@@ -19,7 +19,7 @@ const server = new ApolloServer({
         }
     },
     dataSources: () => ({
-        wageAPI: new WageAPI()
+        SeattleAPI: new SeattleAPI()
     })
 });
 
