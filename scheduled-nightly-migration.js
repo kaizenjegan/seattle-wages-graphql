@@ -7,7 +7,7 @@ mongoose.connect(config.connectionString, {useUnifiedTopology: true});
 
 const jobsModel = JobsModel;
 
-jobsModel.collection.drop();
+
 
 
 const wageReducer = (wage)=>{
@@ -24,10 +24,10 @@ const wageReducer = (wage)=>{
         title: wage[8],
         numberOfFemaleEmployees: wage[9],
         noFemaleEmployee: wage[10],
-        averageOfFemaleMonthsLongevityInCurrentClassification: wage[11], //Average of Female MONTHS LONGEVITY IN CURRENT CLASSIFICATION
+        averageOfFemaleLongevityInMonths: wage[11], //Average of Female MONTHS LONGEVITY IN CURRENT CLASSIFICATION
         maleAvgHrlyRate: wage[12], //Male Avg Hrly Rate
         numberOfMaleEmployees: wage[13], //No. Male Empl"
-        averageOfMaleMonthsLongevityInCurrentClassification: wage[14], //Average of Male MONTHS LONGEVITY IN CURRENT CLASSIFICATION
+        averageOfMaleLongevityInMonths: wage[14], //Average of Male MONTHS LONGEVITY IN CURRENT CLASSIFICATION
         totalAvgHourlyRate: wage[15], //Total Avg Hrly Rate
         totalNoEmployee: wage[16],
         totalAverageOfMonthsLongevityInCurrentClassification: wage[17],
@@ -41,6 +41,8 @@ axios.get('https://data.seattle.gov/api/views/cf52-s8er/rows.json')
   .then(function (response) {
     const wage = response.data;
     const jobs = Array.isArray(wage.data) ? wage.data.map(job => wageReducer(job)): [];
+
+    jobsModel.collection.drop();
 
     jobsModel.insertMany(jobs)
     .then(function(mongooseDocuments) {
