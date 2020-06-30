@@ -1,9 +1,10 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 const mongoose = require('mongoose');
-const connectionString = "mongodb+srv://graphqluser:change@cluster0-bxbjj.azure.mongodb.net/seattlegov?retryWrites=true&w=majority";
 const JobsModel = require('./jobsModel.js');
 
-mongoose.connect(connectionString, {useNewUrlParser: true});
+const config = require('../../envconfig');
+
+mongoose.connect(config.connectionString, {useUnifiedTopology: true});
 
 
 const jobsModel = JobsModel;
@@ -11,8 +12,6 @@ const jobsModel = JobsModel;
 class SeattleAPI extends RESTDataSource {
   constructor() {
     super();
-    // https://data.seattle.gov/api/views/cf52-s8er/rows.json
-    this.baseURL = 'https://data.seattle.gov/api/views/cf52-s8er/';
   }
 
   async getJobs() {
@@ -28,7 +27,7 @@ class SeattleAPI extends RESTDataSource {
   }
 
   //not optimal
-  async getJobsWith({ title }){ 
+  async getJobsWith({ title }){
     console.log('get wages by job title');
     //sanitization + logging
     const promise = new Promise(async(resolve, reject)=>{

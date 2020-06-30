@@ -13,7 +13,7 @@ const typeDefs = gql`
         numberOfFemaleEmployees: String
         averageOfFemaleLongevityInMonths: String
         maleAvgHrlyRate: String
-        noMaleEmployees: String
+        numberOfMaleEmployees: String
         averageOfMaleLongevityInMonths: String
         totalAvgHourlyRate: String
         totalNoEmployee: String
