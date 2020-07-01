@@ -1,14 +1,9 @@
 module.exports = {
     Query: {
-    jobs: (_, { filter, where }, { dataSources }) =>
-            //where male greater than female
-            //where male employees
-            // ( where: {men_earns_more: {_eq: true}} ) false means women_earns_more
-            // ( where: {women_earns_more: {_eq: true}} )
-            //where: {men_stay_longer: {_eq: true }}
-            //where: {women_stay_longer: {_eq: true }}
+    jobs: (_, { filter, where }, { dataSources }) => {
 
-            dataSources.SeattleAPI.getJobs(),
+        return dataSources.SeattleAPI.getJobs({where});
+    },
         job: (_,{ title, id} , { dataSources}) =>
 
             //to do men Greater than
