@@ -4,33 +4,55 @@ A GraphQL layer for querying seattle wage data
 
 
 
-# Test
 - click on web link in description
-- add query below
+- try queries below
 
+# Jobs where Men earn more
+      query getJobsWhereMenEarnMore{
+        jobs(where: {men_earn_more: true}){
+            sid  
+            id   
+            position
+            createdAt
+            meta
+            updatedAt
+            meta
+            title
+            femaleAvgHrlyRate
+            numberOfFemaleEmployees
+            averageOfFemaleLongevityInMonths
+            maleAvgHrlyRate
+            numberOfMaleEmployees
+            averageOfMaleLongevityInMonths
+            totalAvgHourlyRate
+            totalNoEmployee
+            totalAverageOfMonthsLongevityInCurrentClassification
+            ratioOfWomenHourlyRateToMenHourlyRatePercentage
+            notes    
+        }
+      }
 
-      query getWages {
-            jobs {  
-
-                  sid  
-                  id   
-                  position
-                  createdAt
-                  createdMeta
-                  updatedAt
-                  updatedMeta
-                  meta
-                  jobTitle
-                  femaleAvgHrlyRate
-                  noFemaleEmpl
-                  averageOfFemaleMonthsLongevityInCurrentClassification
-                  maleAvgHrlyRate
-                  noMaleEmployeesoyees
-                  averageOfMaleMonthsLongevityInCurrentClassification
-                  totalAvgHrlyRate
-                  totalNoEmpl
-                  totalAverageOfMonthsLongevityInCurrentClassification
-                  ratioOfWomenHourlyRateToMenHourlyRatePercentage
-                  notes    
-            }  
+# Jobs where Women earn more
+      query getJobsWhereMenEarnMore{
+        jobs(where: {men_earn_more: false}){
+            sid  
+            id   
+            position
+            createdAt
+            meta
+            updatedAt
+            meta
+            title
+            femaleAvgHrlyRate
+            numberOfFemaleEmployees
+            averageOfFemaleLongevityInMonths
+            maleAvgHrlyRate
+            numberOfMaleEmployees
+            averageOfMaleLongevityInMonths
+            totalAvgHourlyRate
+            totalNoEmployee
+            totalAverageOfMonthsLongevityInCurrentClassification
+            ratioOfWomenHourlyRateToMenHourlyRatePercentage
+            notes    
+        }
       }
