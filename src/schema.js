@@ -22,8 +22,13 @@ const typeDefs = gql`
         notes: String
     }
 
+    input WhereInput{
+      men_earns_more: Boolean
+      men_stay_longer: Boolean
+    }
+
     type Query {
-        jobs(filter: String): [Job!]!
+        jobs(where: WhereInput): [Job!]!
         job(title: String!): Job
     }
 `;

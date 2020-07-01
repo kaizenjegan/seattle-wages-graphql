@@ -26,20 +26,33 @@ class SeattleAPI extends RESTDataSource {
     })
   }
 
+  async getJobsWhere({ filter }) {
+    const promise = new Promise(async (resolve, reject) => {
+      jobsModel.find({ title: title }, (err, job) => {
+        if (!err) {
+          console.log(job)
+          resolve(job[0])
+        } else {
+          reject(err)
+        }
+      })
+    });
+  }
+
   //not optimal
   async getJobsWith({ title }){
     console.log('get wages by job title');
     //sanitization + logging
-    const promise = new Promise(async(resolve, reject)=>{
-      jobsModel.find({title: title}, (err, job)=>{
-        if(!err){
+    const promise = new Promise(async (resolve, reject) => {
+      jobsModel.find({ title: title }, (err, job) => {
+        if (!err) {
           console.log(job)
           resolve(job[0])
-        }else{
+        } else {
           reject(err)
         }
       })
-    })
+    });
 
     return promise;
   }
