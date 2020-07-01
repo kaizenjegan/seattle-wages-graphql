@@ -1,3 +1,5 @@
+# Seattle Wage Data
+
 A GraphQL layer for querying seattle wage data
 
 ![alt text](screenshot.png)
@@ -7,7 +9,7 @@ A GraphQL layer for querying seattle wage data
 - click on web link in description
 - try queries below
 
-# Jobs where Men earn more
+# Jobs Where Men Earn More
       query getJobsWhereMenEarnMore{
         jobs(where: {men_earn_more: true}){
             sid  
@@ -32,7 +34,7 @@ A GraphQL layer for querying seattle wage data
         }
       }
 
-# Jobs where Women earn more
+# Jobs Where Women Earn More
       query getJobsWhereMenEarnMore{
         jobs(where: {men_earn_more: false}){
             sid  
