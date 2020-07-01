@@ -23,7 +23,7 @@ const typeDefs = gql`
     }
 
     input WhereInput{
-      men_earns_more: Boolean
+      men_earn_more: Boolean
       men_stay_longer: Boolean
     }
 
