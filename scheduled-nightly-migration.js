@@ -22,8 +22,8 @@ const wageReducer = (wage)=>{
         updatedMeta: wage[6],
         meta: wage[7],
         title: wage[8],
-        numberOfFemaleEmployees: wage[9],
-        femaleAvgHrlyRate: wage[10],
+        femaleAvgHrlyRate: wage[9],
+        numberOfFemaleEmployees: wage[10],
         averageOfFemaleLongevityInMonths: wage[11], //Average of Female MONTHS LONGEVITY IN CURRENT CLASSIFICATION
         maleAvgHrlyRate: wage[12], //Male Avg Hrly Rate
         numberOfMaleEmployees: wage[13], //No. Male Empl"

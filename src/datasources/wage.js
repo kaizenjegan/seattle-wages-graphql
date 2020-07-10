@@ -43,8 +43,15 @@ class SeattleAPI extends RESTDataSource {
     return new Promise((resolve, reject)=>{
       jobsModel.find({}, (err, jobs)=>{
         if (!err) {
-          jobs = this.filterMenEarnMore({ where }, jobs);
-          jobs = this.filterMenStayLonger({ where }, jobs);
+          console.log(where);
+          // console.log(jobs);
+
+          //todo: fix
+          // if (where) {
+            jobs = this.filterMenEarnMore({ where }, jobs);
+            jobs = this.filterMenStayLonger({ where }, jobs);
+          // }
+
           resolve(jobs)
         }else{
           reject(err)

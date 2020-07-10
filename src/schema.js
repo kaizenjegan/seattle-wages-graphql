@@ -1,7 +1,26 @@
 const { gql } = require('apollo-server');
 
 const typeDefs = gql`
-    type Job {
+
+    type PageInfo {
+      endCursor: String
+      hasNextPage: Boolean!
+      hasPreviousPage: Boolean!
+      startCursor: String
+    }
+
+    type MetaInfo {
+      totalCount: Int
+      menEarnMore: Int
+      womenEarnMore: Int
+    }
+
+    type Page {
+      pageInfo: PageInfo
+      meta: MetaInfo
+      jobs: [JobType]
+    }
+    type JobType {
         sid: String
         id: String
         position: String
@@ -27,9 +46,12 @@ const typeDefs = gql`
       men_stay_longer: Boolean
     }
 
+
+
     type Query {
-        jobs(where: WhereInput): [Job!]!
-        job(title: String!): Job
+        jobs(where: WhereInput): [JobType!]!
+        job(title: String!): JobType
+        Page: Page
     }
 `;
 
