@@ -1,7 +1,7 @@
 module.exports = {
     Page: {
       meta: (_, __, { dataSources }) => {
-        return {totalCount: 12, menEarnMore: 30, womenEarnMore: 31}
+        return {totalCount: 100, menEarnMore: 68, womenEarnMore: 22}
       }
     },
     Query: {
