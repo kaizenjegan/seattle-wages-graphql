@@ -18,7 +18,7 @@ const typeDefs = gql`
     type Page {
       pageInfo: PageInfo
       meta: MetaInfo
-      jobs: [JobType]
+      jobs(title: String): [JobType]
     }
     type JobType {
         sid: String
@@ -49,11 +49,14 @@ const typeDefs = gql`
 
 
     type Query {
-        jobs(where: WhereInput): [JobType!]!
-        job(title: String!): JobType
         Page: Page
     }
 `;
 
 
 module.exports = typeDefs;
+
+/*
+        jobs(where: WhereInput): [JobType!]!
+        job(title: String!): JobType
+        */

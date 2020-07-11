@@ -39,6 +39,10 @@ class SeattleAPI extends RESTDataSource {
     }
   }
 
+  filterOutNullWages(jobs) {
+    return jobs.filter(job => job.maleAvgHrlyRate !== null && job.femaleAvgHrlyRate !== null);
+  }
+
   async getJobs({ where }) {
     return new Promise((resolve, reject)=>{
       jobsModel.find({}, (err, jobs)=>{
@@ -46,11 +50,11 @@ class SeattleAPI extends RESTDataSource {
           console.log(where);
           // console.log(jobs);
 
-          //todo: fix
-          // if (where) {
-            jobs = this.filterMenEarnMore({ where }, jobs);
-            jobs = this.filterMenStayLonger({ where }, jobs);
-          // }
+
+          jobs = this.filterMenEarnMore({ where }, jobs);
+          jobs = this.filterMenStayLonger({ where }, jobs);
+
+          jobs = this.filterOutNullWages(jobs);
 
           resolve(jobs)
         }else{
