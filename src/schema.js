@@ -56,7 +56,7 @@ const typeDefs = gql`
 
 
     type Query {
-      careers(first: Int): Job
+      careers(page: Int!, size: Int!): Job
     }
 `;
 

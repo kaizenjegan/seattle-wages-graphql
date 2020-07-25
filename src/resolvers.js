@@ -13,11 +13,13 @@ module.exports = {
     },
   },
   Query: {
-    careers: async (_, { filter, where }, { dataSources }) => {
+    careers: async (_, { where, page, size }, { dataSources }) => {
       console.log("resolve page");
-      const jobs = await dataSources.SeattleAPI.getJobs({ where });
+      console.log(`page: ${page} size:${size}`);
+      const jobs = await dataSources.SeattleAPI.getJobs({ where, page, size });
 
       // console.log(jobs);
+      //rough not optimized
       const edges = jobs.map(job => {
         return {
           cursor: "",

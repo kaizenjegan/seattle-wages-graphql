@@ -39,28 +39,21 @@ class SeattleAPI extends RESTDataSource {
     }
   }
 
-  filterOutNullWages(jobs) {
-    return jobs.filter(job => job.maleAvgHrlyRate !== null && job.femaleAvgHrlyRate !== null);
-  }
-
-  async getJobs({ where }) {
+  async getJobs({ where, page, size }) {
+    if (page < 1 || size < 1) return;
     return new Promise((resolve, reject)=>{
-      jobsModel.find({}, (err, jobs)=>{
+      jobsModel.find({ maleAvgHrlyRate: { $ne: null}, femaleAvgHrlyRate: { $ne: null}}, (err, jobs)=>{
         if (!err) {
           console.log(where);
           // console.log(jobs);
-
-
-          jobs = this.filterMenEarnMore({ where }, jobs);
-          jobs = this.filterMenStayLonger({ where }, jobs);
-
-          jobs = this.filterOutNullWages(jobs);
+          // jobs = this.filterMenEarnMore({ where }, jobs);
+          // jobs = this.filterMenStayLonger({ where }, jobs);
 
           resolve(jobs)
         }else{
           reject(err)
         }
-      })
+      }).skip(size*(page-1)).limit(size)
     })
   }
 
