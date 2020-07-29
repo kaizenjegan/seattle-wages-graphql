@@ -5,7 +5,7 @@ const JobsModel = require('./jobsModel.js');
 const config = require('../../envconfig');
 const { json } = require('sequelize');
 
-mongoose.connect(config.connectionString, {useUnifiedTopology: true});
+mongoose.connect(config.connectionString, { useUnifiedTopology: true });
 
 
 const jobsModel = JobsModel;
@@ -41,8 +41,8 @@ class SeattleAPI extends RESTDataSource {
 
   async getJobs({ where, page, size }) {
     if (page < 1 || size < 1) return;
-    return new Promise((resolve, reject)=>{
-      jobsModel.find({ maleAvgHrlyRate: { $ne: null}, femaleAvgHrlyRate: { $ne: null}}, (err, jobs)=>{
+    return new Promise((resolve, reject) => {
+      jobsModel.find({ maleAvgHrlyRate: { $ne: null }, femaleAvgHrlyRate: { $ne: null } }, (err, jobs) => {
         if (!err) {
           console.log(where);
           // console.log(jobs);
@@ -50,15 +50,15 @@ class SeattleAPI extends RESTDataSource {
           // jobs = this.filterMenStayLonger({ where }, jobs);
 
           resolve(jobs)
-        }else{
+        } else {
           reject(err)
         }
-      }).skip(size*(page-1)).limit(size)
+      }).skip(size * (page - 1)).limit(size)
     })
   }
 
   //not optimal
-  async getJobsWith({ title }){
+  async getJobsWith({ title }) {
     console.log('get wages by job title');
     //sanitization + logging
     const promise = new Promise(async (resolve, reject) => {
@@ -73,6 +73,31 @@ class SeattleAPI extends RESTDataSource {
     });
 
     return promise;
+  }
+
+  whereMenEarnMore(jobs) {
+    return jobs.filter(job => job.maleAvgHrlyRate > job.femaleAvgHrlyRate ).length;
+  }
+
+  whereWomenEarnMore(jobs) {
+    return jobs.filter(job => job.femaleAvgHrlyRate > job.maleAvgHrlyRate ).length;
+  }
+  async getMetaData() {
+    return new Promise((resolve, reject) => {
+      jobsModel.find({ maleAvgHrlyRate: { $ne: null }, femaleAvgHrlyRate: { $ne: null } }, (err, jobs) => {
+        if (!err) {
+          const metaData = {
+            totalCount: jobs.length,
+            menEarnMore: this.whereMenEarnMore(jobs),
+            womenEarnMore: this.whereWomenEarnMore(jobs)
+          };
+
+          resolve(metaData)
+        } else {
+          reject(err)
+        }
+      })
+    });
   }
 
 }
