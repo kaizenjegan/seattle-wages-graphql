@@ -28,6 +28,13 @@ module.exports = {
       })
 
       return { edges }
+    },
+    dashboard: async (_, __, { dataSources }) => {
+      return {
+        totalCount: 100,
+        menEarnMore: 70,
+        womenEarnMore: 60
+      }
     }
   }
 

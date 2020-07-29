@@ -55,15 +55,17 @@ const typeDefs = gql`
     }
 
 
+    type Dashboard {
+      totalCount: Int
+      menEarnMore: Int
+      womenEarnMore: Int
+    }
+
     type Query {
       careers(page: Int!, size: Int!): Job
+      dashboard: Dashboard
     }
 `;
 
 
 module.exports = typeDefs;
-
-/*
-        jobs(where: WhereInput): [JobType!]!
-        job(title: String!): JobType
-        */
